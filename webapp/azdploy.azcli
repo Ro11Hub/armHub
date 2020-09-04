@@ -1,0 +1,20 @@
+az login
+az account show
+################################
+az group create --location "westeurope" --name arm-rg 
+az group show --resource-group arm-rg --output table
+####################################################
+# deploy serviceplan
+####################################################
+az deployment group create --resource-group arm-rg `
+--template-file serviceplan.json `
+--name armdeploy4 `
+--verbose
+
+####################################################
+# deploy webapp
+####################################################
+az deployment group validate --resource-group arm-rg `
+--template-file webdeploy.json `
+--name armdeploy2 `
+--verbose
